@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.benryanx.mote",
+  "name": "Mote",
+  "version": "0.1.0",
+  "author": "Ben Ryan",
+  "license": "MIT",
+  "description": "Launch Mote, a native Rust pixel art and animation studio.",
+  "kinds": ["bar-widget"],
+  "entryPoints": { "barWidget": "BarWidget.qml" },
+  "barWidget": {
+    "displayName": "Mote",
+    "category": "Apps",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}

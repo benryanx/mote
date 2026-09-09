@@ -1,0 +1,20 @@
+[package]
+name = "mote"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "A native pixel art and animation studio for Omarchy"
+
+[dependencies]
+eframe = { version = "0.33", default-features = false, features = ["default_fonts", "glow", "wayland", "x11", "persistence"] }
+egui_dock = { version = "0.18", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+image = { version = "0.25", default-features = false, features = ["png", "gif", "jpeg", "webp", "bmp", "tga"] }
+rfd = "0.15"
+toml = "0.9"
+tempfile = "3"
+
+[profile.release]
+lto = "thin"
+strip = true
