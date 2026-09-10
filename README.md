@@ -8,6 +8,11 @@ a compact workspace that follows your desktop theme.
 
 ![Pixel-art flower in Mote, with tools, palette, layers and frames](preview.png)
 
+![Pixel-art portrait in Mote with the palette, navigator, layers and frames visible](screenshots/portrait-workspace.png)
+
+*Portrait workspace in a development build. The Assistant button shown here is
+not included in the 0.1.0 release.*
+
 Mote is an early alpha. Keep backups of important artwork. The published
 **0.1.0** release contains the editor described here; AI-assisted generation is
 being developed separately and is not included in this release.
