@@ -10,8 +10,9 @@ a compact workspace that follows your desktop theme.
 
 ![Pixel-art portrait in Mote with the palette, navigator, layers and frames visible](screenshots/portrait-workspace.png)
 
-Mote is an early alpha. Keep backups of important artwork. The published
-**0.1.0** release contains the editor described here.
+This checkout is **0.2.0-rc.1**, the second-release candidate with an optional
+Assistant. Keep backups of important artwork. The original **0.1.0** release
+does not include Assistant features. Marketplace approval is pending.
 
 ## Features
 
@@ -25,6 +26,23 @@ Mote is an early alpha. Keep backups of important artwork. The published
 - Rectangular selections, internal copy/paste, flips and canvas/sprite resizing.
 - PNG, JPEG, lossless WebP, BMP, TGA and GIF export, sprite sheets and sequences.
 - Customizable keyboard shortcuts and import/export of shortcut profiles.
+- Tool-specific pointer icons for clearer pencil, eraser, fill and picker selection.
+- Optional prompt-to-pixel-art Assistant with preview, editable layers and undo.
+
+## Assistant (0.2)
+
+Open **Assistant**, then **⚙ Settings**. Choose the Omarchy default agent
+(currently Codex only), Ollama, or an OpenAI-compatible API endpoint. Agent mode
+uses an existing Codex login; HTTP services may require their own API key.
+Review the destination, enter a prompt and explicitly approve sending context.
+Only your prompt, canvas size and palette are included—not existing artwork.
+
+Review the result before **Apply as new layers**. If the source tab changed,
+return to it or use **Open preview in new tab**. Applying supports one-step undo.
+Settings and keys last for the session only. Provider usage limits and charges
+may apply. No generation happens automatically; ordinary editing needs no AI.
+See [AI.md](AI.md) for setup, bounds and compatibility, and [SECURITY.md](SECURITY.md)
+for the new network and agent-process capabilities.
 
 Mote uses native Wayland/X11 windows and OpenGL rendering. Omarchy theme changes
 restyle the interface without changing the artwork palette.
@@ -39,7 +57,7 @@ or X11, and a working desktop file chooser portal with a backend.
 Review the source and installation script, then run:
 
 ```sh
-git clone --branch v0.1.0 https://github.com/benryanx/mote.git
+git clone --branch v0.2.0-rc.1 https://github.com/benryanx/mote.git
 cd mote
 mise trust
 mise exec -- bash scripts/install.sh
@@ -134,8 +152,9 @@ Saving an editable project remains separate from exporting.
   under `$XDG_STATE_HOME/mote/` (normally `~/.local/state/mote/`). Open recovery
   files manually. Snapshots are not a substitute for versioned backups.
 - Workspace preferences persist, but open document tabs are not restored on restart.
-- The 0.1.0 editor has no telemetry, network API, listener, browser or webview.
-  It accesses selected artwork, theme files, preferences and recovery data.
+- Mote has no telemetry, inbound API listener, browser or webview. Optional
+  Assistant requests use outbound HTTP or a locally launched agent CLI.
+  Ordinary editing accesses artwork, theme files, preferences and recovery data.
   File dialogs use the desktop portal.
 
 See [ROADMAP.md](ROADMAP.md) for planned work and [CHANGELOG.md](CHANGELOG.md)

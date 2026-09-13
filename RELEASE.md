@@ -1,68 +1,45 @@
-# First public release preparation
+# Mote second-release candidate
 
-Public repository: `https://github.com/benryanx/mote` (owner-approved).
-Version: `0.1.0`; proposed tag: `v0.1.0`, marked as a GitHub prerelease.
-Permanent plugin ID: `io.github.benryanx.mote`.
+Version: **0.2.0-rc.1**; tag: **v0.2.0-rc.1**.
+Repository: https://github.com/benryanx/mote
+Plugin ID: `io.github.benryanx.mote`.
 
-The editor stays Rust. The shell integration is a small QML bar launcher.
-No AI feature, model download, cloud account or background service is included.
+The Assistant is optional. The native editor and launcher remain separate.
+See AI.md and SECURITY.md for network/process capabilities and limitations.
 
-## Prepared locally
+## Release gates
 
-- Root manifest, QML entry point, MIT license and install/removal documentation.
-- Owner-supplied screenshot copied unchanged to `preview.png`.
-- Changelog and marketplace submission draft in `packaging/marketplace-submission.md`.
-- Repeatable local checks in `scripts/check.sh`.
+Run `bash scripts/check.sh` and `bash scripts/test-packaging.sh`.
+The first covers Rust tests, formatting, Clippy, desktop entry, manifest and QML.
+The second builds and tests staged install/reinstall/removal without changing the
+live application. Preserve artwork and settings in the staged tests.
 
-## Required before submission
+On 2026-09-14 all 52 Rust tests, formatting, Clippy, desktop-entry, manifest and
+QML checks passed on Omarchy 4.0.3-1. Staged install/reinstall/removal also passed,
+preserving test artwork and settings. Loopback HTTP fixture tests required an
+unsandboxed rerun; the sandbox denied socket binding, not an application failure.
 
-- [x] Review publication file list and scan common credential patterns (none
-      found); owner confirmed screenshot/artwork publication rights. This is
-      not a comprehensive security or dependency-license audit.
-- [x] No identifier match in the current full registry (including retired IDs)
-      or previous submission search on 2026-09-09; final allocation is subject
-      to marketplace validation.
-- [x] Run `bash scripts/check.sh`: 32 Rust tests, formatting, Clippy, desktop
-      entry, manifest and QML validation passed locally on Omarchy 4.0.3-1.
-- [x] Staged install/reinstall/removal passed using `scripts/test-packaging.sh`;
-      test artwork, recovery and settings files remained. This does not replace
-      the clean desktop tests below.
-- [ ] Test install, launch, file association, update and uninstall in a clean
-      Omarchy test account or VM; verify artwork and settings survive removal.
-- [ ] Test bar click, disable/re-enable, shell restart and wrapper removal.
-- [ ] Verify window layout and file chooser on the supported desktop session.
-- [ ] Approve and create the public repository, review committed files, and push.
-- [x] Replace README's unpublished status with actual clone/install instructions.
-- [ ] Tag the reviewed commit and publish the initial prerelease with CHANGELOG notes.
-- [ ] Review the exact submission body with the owner; confirm all five checklist
-      statements before checking them and explicitly approving submission.
-- [ ] Submit one issue and follow validation/security-baseline feedback.
+Manual owner testing confirmed API/agent generation, previews and application.
+No latency benchmark, broad agent/provider matrix, clean-VM installation or full
+shell enable/disable/restart lifecycle test is claimed. Open tabs and pending
+previews are not restored across restarts.
 
-No live desktop configuration is changed by the local check script. Integration
-tests above must use a disposable environment, not remove the owner's installation.
-Do not imply these pending tests have passed.
+## Publication sequence
 
-## Distribution and updates
+1. Integrate upstream main, commit all reviewed release files, and run checks.
+2. Push the exact reviewed commit to main and tag the release candidate.
+3. Prepare a draft GitHub prerelease using packaging/release-notes.md.
+4. Update marketplace submission #5900 to disclose Assistant capabilities and
+   request new validation/security-baseline checks for that exact full SHA.
+5. Wait for maintainer review; do not apply approval labels or claim approval.
+   Keep main unchanged while the immutable snapshot is under review.
 
-Initial release preparation uses source builds with Cargo.lock. Dependencies and
-Rust are downloaded during setup; ordinary editing has no network API or telemetry.
-The marketplace wrapper does not install or update the executable automatically.
-Request the marketplace's `manual-setup` classification and disclose the native
-installation prerequisite. Never silently compile/download code on a bar click.
+The prior marketplace review was blocked because its validated 0.1.0 SHA no
+longer matched main after README updates. Revalidation must cover the final
+candidate, not the earlier snapshot.
 
-If prebuilt binaries are added later, build on an explicitly supported baseline,
-test runtime library compatibility, and distribute checksums with versioned assets.
-Do not claim arbitrary Linux portability for a binary built on this workstation.
+## Distribution
 
-## Preview
-
-`preview.png` is the supplied 2560×1440 screenshot, copied without modification.
-The owner confirmed rights to both the screenshot and the pictured artwork.
-The marketplace handles preview optimization. No generated or retouched asset
-has been substituted.
-
-## References
-
-- https://plugins.omarchy.org/publish.html
-- https://plugins.omarchy.org/develop.html
-- https://github.com/omacom/omarchy-plugin-marketplace/blob/main/SUBMISSION.md
+Source build with Cargo.lock; no prebuilt portability claims. The marketplace
+wrapper does not install or update the native executable. Request manual-setup
+classification. Installation and removal preserve user artwork and settings.

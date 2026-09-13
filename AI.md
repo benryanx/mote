@@ -1,6 +1,6 @@
 # Assistant: first generation phase
 
-Available on the development branch, not the published 0.1.0 release. This is
+Included in 0.2.0-rc.1, not the original 0.1.0 release. This is
 structured pixel drawing by a language model, not an image-diffusion backend.
 Art quality depends on the model; meaningful layers are requested but cannot be
 guaranteed artistically. AI animation, image uploads and an MCP bridge are not
@@ -95,12 +95,13 @@ modify the project. Empty drawing output is rejected.
 Tests cover both HTTP adapters against local mock servers, invalid model output,
 canvas/palette bounds, preservation of other frames, stale/wrong-tab rejection,
 undo/redo, cancel disposal, secret-safe HTTP errors and preview rendering.
-No paid API requests were made during development. No running Ollama service
-was available for a live model-quality test. End-to-end artistic quality and
-real-provider compatibility still need testing with the user's chosen model.
+Automated tests use local fixtures, not paid generation. The owner manually
+confirmed generation and application with API and Omarchy-agent connections.
+No running Ollama service was available for a live model-quality test. This is
+not a full provider/version compatibility matrix or a latency benchmark.
 Agent tests cover event parsing, restrictive command flags, stdin transport,
-timeouts and cancellation. No live Codex generation was requested during this
-implementation; login and model compatibility need a first-run check.
+timeouts and cancellation. Agent login, model access and CLI flag support remain
+installation-dependent and require a first-run check.
 
 Protocol references:
 

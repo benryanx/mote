@@ -1,6 +1,6 @@
 # Mote studio roadmap
 
-The ambition is a professional pixel art workflow with Aseprite's approachability.
+The ambition is an approachable, professional pixel art workflow.
 The current alpha establishes editable artwork, animation and native integration.
 The following features are planned, not implemented or implied by existing UI.
 
@@ -40,4 +40,15 @@ The following features are planned, not implemented or implied by existing UI.
 - Validate QML in a real Quattro session and test enable/disable/removal lifecycle.
 - Public repository, marketplace ID/name checks, accurate preview and submission review.
 
-No marketplace submission or Aseprite compatibility is claimed by the alpha.
+Marketplace submission #5900 is pending approval. File-format compatibility
+with other editors is not claimed.
+
+## Assistant follow-up
+
+- Generation timing measurements and compact drawing primitives.
+- Progressive previews and optional refinement passes.
+- More agent adapters and persistent non-secret connection profiles.
+- Animation generation and dedicated raster image-model import.
+
+The 0.2 candidate implements static layered generation with Codex, Ollama and
+compatible HTTP providers; the items above remain planned.

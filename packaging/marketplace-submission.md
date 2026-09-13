@@ -23,9 +23,14 @@ native executable using the documented script before using the bar button.
 Adding/updating the plugin does not build or update the executable.
 
 The application includes layers, frames, document tabs, customizable shortcuts,
-palettes, gradients and image/animation exports. This is an initial alpha.
-AI generation is not included. No network API, telemetry or background service
-is implemented. Build dependencies require downloads; file dialogs use the
+palettes, gradients and image/animation exports. Version 0.2.0-rc.1 adds an optional
+Assistant: user-approved outbound HTTP (Ollama/compatible API) or an installed
+Codex CLI subprocess using the existing login. Only prompt, canvas dimensions
+and palette are sent; credentials are session-only. Generated JSON is bounded,
+validated, previewed and applied as undoable layers. See AI.md and SECURITY.md
+for timeout, cancellation, endpoint restrictions and agent trust boundaries.
+No inbound listener, telemetry or background service is installed.
+Build dependencies require downloads; file dialogs use the
 desktop portal. Installation is per-user without sudo or desktop config edits.
 Application and plugin removal are documented separately and preserve artwork.
 

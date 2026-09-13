@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0-alpha.1 — development (unreleased)
+## 0.2.0-rc.1 — second-release candidate (2026-09-14)
 
 - Omarchy default-agent connection (Codex), reusing login with restricted ephemeral
   CLI runs, preview validation and owned-process cancellation.
@@ -10,6 +10,9 @@
 - Preview/discard/apply with one-step undo and stale/wrong-tab protection.
 - Background requests, time/response limits and discard-on-cancel behavior.
 - Session-only credentials; HTTPS except loopback; no automatic retries or redirects.
+- Prompt-first Assistant with staged settings and Save/Cancel controls.
+- Explicit Sol/low-reasoning agent default, source-tab navigation and preview recovery.
+- Tool-specific vector cursor icons, including locked-layer feedback.
 
 ## 0.1.0 — initial public alpha (2026-09-09)
 
@@ -24,6 +27,5 @@
 - Freehand strokes track outside the canvas and resume on re-entry.
 - Optional Omarchy bar launcher, desktop entry, icon and project MIME association.
 
-AI-assisted generation is planned for a later version and is not included.
-This is an alpha, not Aseprite feature parity. See ROADMAP.md and README.md
+Assistant generation is not included in 0.1.0. See ROADMAP.md and README.md
 for limitations, including document-session persistence.
