@@ -2,6 +2,9 @@
 
 A little canvas. Endless possibilities.
 
+Development branch: **0.2.0-alpha.1**, adding optional AI generation. The public
+`v0.1.0` release remains unchanged and does not contain this feature.
+
 ![Mote editing a layered pixel-art flower, with tools, palette, navigator and animation frames](preview.png)
 
 Mote is a fresh Rust pixel art and animation editor for Omarchy. The interface
@@ -32,6 +35,9 @@ desktop runtime. Cargo downloads the dependencies pinned in Cargo.lock.
 
 ## Implemented
 
+- Experimental Assistant: prompt-to-art using the Omarchy default agent (Codex),
+  Ollama or an OpenAI-compatible Chat Completions endpoint. Preview/discard/apply on new layers with one undo
+  step. See [AI.md](AI.md) for setup, privacy, supported limits and testing status.
 - Native file choosers and their save/open/export work run in the background,
   keeping the window responsive while browsing folders. Editing pauses until
   the operation finishes; canceled or failed saves keep unsaved work intact.
@@ -213,7 +219,8 @@ omarchy plugin enable io.github.benryanx.mote
 Click the bar icon to launch a window. Remove the wrapper with
 `omarchy plugin remove io.github.benryanx.mote`. The wrapper executes `mote` from
 PATH, inherits shell theme styling and runs no background service. The editor
-uses no network API, listener, browser or webview. It reads theme files, accesses
+uses no listener, browser or webview. Optional AI generation sends an outbound
+request only after explicit user consent and Generate. It reads theme files, accesses
 user-chosen artwork and writes recovery snapshots. File dialogs use the desktop
 portal. No telemetry or remote code execution is implemented.
 

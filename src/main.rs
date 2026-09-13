@@ -1,3 +1,5 @@
+mod agent;
+mod ai;
 mod background;
 mod documents;
 mod exporting;
@@ -8,6 +10,7 @@ mod palette_ui;
 mod palettes;
 mod resize;
 mod theme;
+mod tool_cursor;
 mod workspace;
 use eframe::egui::{self, Color32, Pos2, Rect, Sense, Stroke, Vec2};
 use mote::document::{CLEAR, Document, Pixel, line};
@@ -47,6 +50,7 @@ enum Pending {
     CloseTab,
 }
 struct Studio {
+    ai: ai::Assistant,
     io_job: Option<background::Job>,
     bindings: Vec<keybindings::Binding>,
     key_editor: keybindings::Editor,
@@ -106,6 +110,7 @@ impl Default for Studio {
     fn default() -> Self {
         let doc = Document::new(32, 32);
         Self {
+            ai: Default::default(),
             io_job: None,
             bindings: keybindings::defaults(),
             key_editor: Default::default(),
@@ -491,6 +496,9 @@ impl Studio {
         egui::TopBottomPanel::top("header").show(ctx, |ui| {
             ui.horizontal(|ui| {
                 ui.label(egui::RichText::new("mote").size(25.0).strong());
+                if ui.button("Assistant").clicked() {
+                    self.ai.open = !self.ai.open;
+                }
                 ui.separator();
                 ui.menu_button("File", |ui| {
                     if ui
@@ -957,6 +965,9 @@ impl Studio {
                 )
             };
             let inside = rect.contains(pos) && area.contains(pos) && response.hovered();
+            if response.hovered() {
+                self.paint_tool_cursor(&ctx, &painter, pos);
+            }
             if inside {
                 let cursor = Rect::from_min_size(
                     rect.min + Vec2::new(p.0 as f32, p.1 as f32) * self.zoom,
@@ -1105,6 +1116,7 @@ impl eframe::App for Studio {
         eframe::set_value(storage, "export-options-v1", &self.export_options);
     }
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        self.poll_ai();
         self.poll_background(ctx);
         self.theme.refresh(ctx);
         if ctx.input(|i| i.viewport().close_requested()) && !self.allow_close {
@@ -1125,6 +1137,7 @@ impl eframe::App for Studio {
         self.toolbar(ctx);
         self.document_tabs(ctx);
         self.workspace(ctx);
+        self.ai_window(ctx);
         self.dialogs(ctx);
         if self.recovery_tick.elapsed() > Duration::from_secs(30)
             && self.stroke_before.is_none()
@@ -1133,7 +1146,7 @@ impl eframe::App for Studio {
             self.save_recovery_documents();
             self.recovery_tick = Instant::now();
         }
-        ctx.request_repaint_after(if self.io_job.is_some() {
+        ctx.request_repaint_after(if self.io_job.is_some() || self.ai_busy() {
             Duration::from_millis(50)
         } else if self.playing {
             Duration::from_millis(10)

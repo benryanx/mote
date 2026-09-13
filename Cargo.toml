@@ -1,6 +1,6 @@
 [package]
 name = "mote"
-version = "0.1.0"
+version = "0.2.0-alpha.1"
 edition = "2024"
 license = "MIT"
 description = "A native pixel art and animation studio for Omarchy"
@@ -14,6 +14,7 @@ image = { version = "0.25", default-features = false, features = ["png", "gif", 
 rfd = "0.15"
 toml = "0.9"
 tempfile = "3"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }
 
 [profile.release]
 lto = "thin"

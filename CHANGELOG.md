@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0-alpha.1 — development (unreleased)
+
+- Omarchy default-agent connection (Codex), reusing login with restricted ephemeral
+  CLI runs, preview validation and owned-process cancellation.
+- Optional Assistant window with Ollama and OpenAI-compatible JSON chat adapters.
+- Prompt, canvas dimensions and palette context; no existing artwork upload.
+- Bounded drawing-data validation and pixel-exact new-layer rendering.
+- Preview/discard/apply with one-step undo and stale/wrong-tab protection.
+- Background requests, time/response limits and discard-on-cancel behavior.
+- Session-only credentials; HTTPS except loopback; no automatic retries or redirects.
+
 ## 0.1.0 — initial public alpha (2026-09-09)
 
 - Native Rust pixel-art editor with Omarchy theme integration and dockable panels.
